@@ -11,6 +11,10 @@
     <groupId>pers.yuiz</groupId>
     <artifactId>base</artifactId>
     <version>1.0</version>
+    <properties>
+        <shiro.version>1.4.0</shiro.version>
+        <commons-codec.version>1.10</commons-codec.version>
+    </properties>
     <dependencies>
         <!--Web层 start-->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
@@ -19,6 +23,34 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!--Web层 end-->
+        <!--Shiro支持 start-->
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.shiro/shiro-core &ndash;&gt;-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring-boot-starter &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>org.apache.shiro</groupId>-->
+        <!--<artifactId>shiro-spring-boot-starter</artifactId>-->
+        <!--<version>${shiro.version}</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.shiro/shiro-ehcache &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>org.apache.shiro</groupId>-->
+        <!--<artifactId>shiro-ehcache</artifactId>-->
+        <!--<version>${shiro.version}</version>-->
+        <!--</dependency>-->
+        <!--Shiro支持 end-->
+        <!--Redis支持 start-->
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <!--Redis支持 end-->
         <!--持久层 start-->
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
@@ -50,13 +82,41 @@
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>1.1.1</version>
         </dependency>
-        <!--持久层 end-->        <!--日志 start-->
+        <!--持久层 end-->
+        <!--日志 start-->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2 -->
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-log4j2</artifactId>-->
+        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
         </dependency>
         <!--日志 end-->
+        <!--工具 start-->
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.32</version>
+        </dependency>
+        <!--工具 end-->
+        <!--测试 start-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <!--测试 end-->
     </dependencies>
     <build>
         <plugins>

@@ -2,7 +2,7 @@ package pers.yuiz.biz.service;
 
 import com.github.pagehelper.PageInfo;
 import pers.yuiz.biz.entity.Country;
-import pers.yuiz.common.PageDTO;
+import pers.yuiz.common.dto.PageDTO;
 
 public interface CountryService {
     /**

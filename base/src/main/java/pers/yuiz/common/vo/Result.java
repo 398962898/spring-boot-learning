@@ -1,5 +1,7 @@
 package pers.yuiz.common.vo;
 
+import pers.yuiz.common.exception.WarnException;
+
 import java.io.Serializable;
 
 public class Result implements Serializable {
@@ -18,6 +20,11 @@ public class Result implements Serializable {
     public Result(Result result) {
         this.code = result.getCode();
         this.msg = result.getMsg();
+    }
+
+    public Result(WarnException e) {
+        this.code = e.getCode();
+        this.msg = e.getMessage();
     }
 
     public Integer getCode() {

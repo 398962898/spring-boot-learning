@@ -41,7 +41,7 @@ public class DaoConfig {
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations(resolver.getResources("classpath:pers/yuiz/*/mapper/*.xml"));
+            bean.setMapperLocations(resolver.getResources("classpath:pers/yuiz/*.xml"));
             logger.info("SqlSessionFactoryBean.class加载完成");
             return bean.getObject();
         } catch (Exception e) {

@@ -1,27 +1,15 @@
 package pers.yuiz.customer.entity;
 
+import pers.yuiz.common.entity.BaseEntity;
+
 import java.util.Date;
 
-public class User {
-    /**
-     * 主键id
-     */
-    private Long id;
-
-    /**
-     * 创建时间
-     */
-    private Date gmtCreate;
-
-    /**
-     * 修改时间
-     */
-    private Date gmtModified;
+public class User extends BaseEntity{
 
     /**
      * 用户名
      */
-    private String name;
+    private String username;
 
     /**
      * 密码
@@ -48,36 +36,12 @@ public class User {
      */
     private Date birthday;
 
-    public Long getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

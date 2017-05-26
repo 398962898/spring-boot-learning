@@ -19,3 +19,13 @@ datasource:
   testOnReturn: false
   poolPreparedStatements: true
   maxOpenPreparedStatements: 20
+#cookie:
+#  username: yuizId
+#  path: /
+#  maxAge: maxAge
+#sessionManager:
+#  globalSessionTimeout: 3600000
+#  deleteInvalidSessions: true
+#credentialsMatcher:
+#  hashAlgorithmName: MD5
+#  hashIterations: 10

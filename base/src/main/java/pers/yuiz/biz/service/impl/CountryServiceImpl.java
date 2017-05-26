@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import pers.yuiz.biz.dao.CountryDao;
 import pers.yuiz.biz.entity.Country;
 import pers.yuiz.biz.service.CountryService;
-import pers.yuiz.common.PageDTO;
+import pers.yuiz.common.dto.PageDTO;
 
 import java.util.List;
 
