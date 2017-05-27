@@ -1,16 +1,16 @@
 server:
-  port: 9001
+  port: 80
 
-datasource:
+druid:
   url: jdbc:mysql://localhost:3306/yuiz?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
   username: yuiz
   password: yuiz
   driverClassName: com.mysql.jdbc.Driver
   filters: stat
   maxActive: 20
-  initialSize: 1
-  maxWait: 60000
-  minIdle: 1
+  initialSize: 10
+  maxWait: 6000
+  minIdle: 10
   timeBetweenEvictionRunsMillis: 60000
   minEvictableIdleTimeMillis: 300000
   validationQuery: select 'x'
@@ -19,13 +19,14 @@ datasource:
   testOnReturn: false
   poolPreparedStatements: true
   maxOpenPreparedStatements: 20
-#cookie:
-#  username: yuizId
-#  path: /
-#  maxAge: maxAge
-#sessionManager:
-#  globalSessionTimeout: 3600000
-#  deleteInvalidSessions: true
-#credentialsMatcher:
-#  hashAlgorithmName: MD5
-#  hashIterations: 10
+mybatis:
+  mapper-locations: classpath*:pers/yuiz/*/mapper/*.xml
+mapper:
+  mappers:
+    - pers.yuiz.common.base.BaseMapper
+  not-empty: false
+  identity: MYSQL
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

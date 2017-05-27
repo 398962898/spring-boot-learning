@@ -1,6 +1,6 @@
 package pers.yuiz.customer.entity;
 
-import pers.yuiz.common.entity.BaseEntity;
+import pers.yuiz.common.base.BaseEntity;
 
 import java.util.Date;
 

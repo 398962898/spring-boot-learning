@@ -1,8 +1,11 @@
 package pers.yuiz.common.interceptor;
 
 import com.alibaba.fastjson.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import pers.yuiz.common.costant.StringCostant;
 import pers.yuiz.common.util.CookieUtil;
 import pers.yuiz.common.util.JedisUtil;
 import pers.yuiz.customer.entity.User;
@@ -13,31 +16,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class KeepLoginInterceptor implements HandlerInterceptor {
-    public final static String myCookie = "yuizId";
+    private static final Logger logger = LoggerFactory.getLogger(KeepLoginInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
-        Cookie yuizId = null;
+        Cookie baseCookieName = null;
         if (cookies == null || cookies.length == 0) {
-            yuizId = CookieUtil.createCookie(myCookie);
+            baseCookieName = CookieUtil.createCookie(StringCostant.baseCookie);
         } else {
             for (int i = 0; i < cookies.length; i++) {
-                if (myCookie.equals(cookies[i].getName())) {
-                    yuizId = cookies[i];
+                if (StringCostant.baseCookie.equals(cookies[i].getName())) {
+                    baseCookieName = cookies[i];
                     break;
                 }
                 if (i == cookies.length - 1) {
-                    yuizId = CookieUtil.createCookie(myCookie);
+                    baseCookieName = CookieUtil.createCookie(StringCostant.baseCookie);
                 }
             }
         }
-        yuizId.setMaxAge(360000);
-        response.addCookie(yuizId);
+        baseCookieName.setMaxAge(360000);
+        response.addCookie(baseCookieName);
         Jedis jedis = null;
         try {
             jedis = JedisUtil.createJedis();
-            String key = yuizId.getValue();
+            String key = baseCookieName.getValue();
             String userJson = jedis.get(key);
             if (userJson != null) {
                 User user = JSON.parseObject(userJson, User.class);
@@ -52,11 +55,9 @@ public class KeepLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
     }
 }

@@ -3,6 +3,7 @@ package pers.yuiz.customer.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pers.yuiz.common.costant.ResultCostant;
 import pers.yuiz.common.exception.WarnException;
 import pers.yuiz.common.util.EncodeUtil;
 import pers.yuiz.customer.dao.RoleDao;
@@ -12,6 +13,7 @@ import pers.yuiz.customer.entity.User;
 import pers.yuiz.customer.entity.UserRole;
 import pers.yuiz.customer.service.CustomerService;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -72,9 +74,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public int register(User user) {
+        Long userCount = userDao.countByUsername(user.getUsername());
+        if (userCount > 0) {
+            throw new WarnException(ResultCostant.REGISTER_USERNAME_IS_REPEATED_WARN);
+        }
+        int i = 0;
         String newPassword = EncodeUtil.MD5Hex(user.getPassword());
         user.setPassword(newPassword);
-        int i = userDao.insert(user);
+        i = userDao.insertSelective(user);
         if (i > 0) {
             UserRole userRole = new UserRole();
             userRole.newCreate();
@@ -122,8 +129,9 @@ public class CustomerServiceImpl implements CustomerService {
         user.setPassword(newPassword);
         user = userDao.selectOne(user);
         if (user == null) {
-            throw new WarnException(4999, "用户名或密码错误");
+            throw new WarnException(ResultCostant.LOGIN_ARGS_IS_WRONG_WARN);
         }
         return user;
     }
+
 }

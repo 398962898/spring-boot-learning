@@ -1,8 +1,8 @@
 package pers.yuiz.biz.dao;
 
 import pers.yuiz.biz.entity.Country;
-import tk.mybatis.mapper.common.Mapper;
+import pers.yuiz.common.base.BaseMapper;
 
-public interface CountryDao extends Mapper<Country> {
+public interface CountryDao extends BaseMapper<Country> {
 
 }

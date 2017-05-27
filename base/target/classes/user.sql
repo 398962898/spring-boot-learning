@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-05-25 23:08:17
+Date: 2017-05-26 22:00:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,10 +24,10 @@ CREATE TABLE `user` (
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '修改时间',
   `username` varchar(20) NOT NULL COMMENT '用户名',
-  `password` varchar(20) NOT NULL COMMENT '密码',
+  `password` varchar(60) NOT NULL COMMENT '密码',
   `sex` tinyint(2) DEFAULT '0' COMMENT '性别,0表示未设定,1表示男,2表示女',
   `email` varchar(40) DEFAULT '' COMMENT '电子邮箱地址',
   `telephone` varchar(15) DEFAULT NULL COMMENT '手机号',
   `birthday` datetime DEFAULT NULL COMMENT '生日',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;

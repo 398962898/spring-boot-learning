@@ -1,8 +1,6 @@
 package pers.yuiz.customer.entity;
 
-import pers.yuiz.common.entity.BaseEntity;
-
-import java.util.Date;
+import pers.yuiz.common.base.BaseEntity;
 
 public class UserRole extends BaseEntity {
 

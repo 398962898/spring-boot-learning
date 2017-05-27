@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+<body>
+<div id="app" align="center">
+    <p>Hello world!</p>
+    <p>用户名:<input id="username" name="password" v-model="username"></p>
+    <p>密&nbsp;&nbsp;&nbsp;&nbsp;码:<input id="password" type="password" name="password" v-model="password"></p>
+    <p>
+        <input id="register" type="button" value="注册" @click="registerFn()">&nbsp;&nbsp;
+        <input id="login" type="button" value="登录" @click="loginFn()">&nbsp;&nbsp;
+        <input id="info" type="button" value="登录信息" @click="infoFn()">&nbsp;&nbsp;
+        <input id="country" type="button" value="国家信息" @click="getCountrysFn()">&nbsp;&nbsp;
+        <input id="logout" type="button" value="退出登录" @click="logoutFn()">&nbsp;&nbsp;
+        <input id="show" type="button" value="显示" @click="showFn()" v-if="!flag">
+        <input id="hide" type="button" value="隐藏" @click="hideFn()" v-if="flag">
+    </p>
+    <p><input v-model="message"></p>
+    <div v-show="flag" class="glyphicon glyphicon-envelope"><p>{{message}}</p></div>
+    <div id="tableDiv">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <th>序号</th>
+            <th>国家名</th>
+            <th>国家代号</th>
+            </thead>
+            <tbody>
+            <tr v-for="country in countrys">
+                <td>{{country.id}}</td>
+                <td>{{country.countryName}}</td>
+                <td>{{country.countryCode}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="pageDiv" align="center">
+        <button id="lastPage" class="btn btn-info btn-lg" @click="lastPageFn()">上一页</button>&nbsp;
+        <span v-for="page in navigatepageNums">
+                &nbsp;
+                <button class="btn btn-info active" v-if="page == pageNum" @click="setPageNumFn(page)">{{page}}</button>
+                <button class="btn btn-info" v-else @click="setPageNumFn(page)">{{page}}</button>
+                &nbsp;
+            </span>
+        &nbsp;<button id="nextPage" class="btn btn-info btn-lg" @click="nextPageFn()">下一页</button>
+    </div>
+    <div>
+        <li>用户id:{{user.id}}</li>
+        <li>用户名:{{user.username}}</li>
+        <li>性别:{{user.sex}}</li>
+        <li>生日:{{user.birthday}}</li>
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+<script src="./js/index.js"></script>
+<link href="./css/index.css" rel="stylesheet">
+</html>
