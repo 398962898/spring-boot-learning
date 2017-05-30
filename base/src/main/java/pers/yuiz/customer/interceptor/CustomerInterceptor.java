@@ -6,18 +6,19 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import pers.yuiz.common.costant.ResultCostant;
 import pers.yuiz.common.exception.WarnException;
-import pers.yuiz.customer.entity.User;
+import pers.yuiz.customer.vo.LoginInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 public class CustomerInterceptor implements HandlerInterceptor {
     private final static Logger logger = LoggerFactory.getLogger(CustomerInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Object o = request.getAttribute("user");
-        if (o != null && o instanceof User) {
+        Object o = request.getSession().getAttribute("loginInfo");
+        if (o != null && o instanceof LoginInfo) {
             return true;
         }
         throw new WarnException(ResultCostant.NOT_LOGIN_WARN);

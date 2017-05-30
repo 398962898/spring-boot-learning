@@ -3,6 +3,7 @@ package pers.yuiz.customer.service;
 import org.springframework.transaction.annotation.Transactional;
 import pers.yuiz.customer.entity.Role;
 import pers.yuiz.customer.entity.User;
+import pers.yuiz.customer.vo.LoginInfo;
 
 import java.util.List;
 
@@ -61,5 +62,5 @@ public interface CustomerService {
      * @param user
      * @return
      */
-    public User login(User user);
+    public LoginInfo login(User user);
 }

@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pers.yuiz.common.costant.ResultCostant;
-import pers.yuiz.common.costant.StringCostant;
 import pers.yuiz.common.exception.WarnException;
-import pers.yuiz.common.util.CookieUtil;
 import pers.yuiz.common.util.JedisUtil;
 import pers.yuiz.common.util.ResultUtil;
 import pers.yuiz.common.vo.Result;
 import pers.yuiz.customer.entity.User;
 import pers.yuiz.customer.service.CustomerService;
+import pers.yuiz.customer.vo.LoginInfo;
 import redis.clients.jedis.Jedis;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 
 @RestController
@@ -42,39 +42,33 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public Result login(User user, HttpServletRequest request) {
-        Jedis jedis = null;
-        try {
-            user = customerService.login(user);
-            if (user != null) {
-                jedis = JedisUtil.createJedis();
-                Cookie cookie = CookieUtil.selectCookie(request, StringCostant.baseCookie);
-                String key = cookie.getValue();
-                String value = JSON.toJSONString(user);
-                jedis.setex(key, 18000, value);
-            }
-        } finally {
-            JedisUtil.returnResource(jedis);
+    public Result login(User user, HttpSession session) {
+        LoginInfo loginInfo = customerService.login(user);
+        if (loginInfo != null) {
+            session.setAttribute("loginInfo", loginInfo);
         }
-        return ResultUtil.success();
+        String key = "loginInfo:" + UUID.randomUUID().toString();
+        String value = JSON.toJSONString(loginInfo);
+        JedisUtil.setex(key, 360000, value);
+        return ResultUtil.success(key);
     }
 
     @PostMapping("/logout")
-    public Result logout(HttpServletRequest request) {
-        Jedis jedis = null;
-        try {
-            jedis = JedisUtil.createJedis();
-            Cookie cookie = CookieUtil.selectCookie(request, StringCostant.baseCookie);
-            jedis.del(cookie.getValue());
-        } finally {
-            JedisUtil.returnResource(jedis);
+    public Result logout(String auth, HttpSession session, HttpServletRequest request) {
+        session.removeAttribute("loginInfo");
+        if (auth != null) {
+            JedisUtil.del(auth);
+        }
+        auth = request.getHeader("auth");
+        if (auth != null) {
+            JedisUtil.del(auth);
         }
         return ResultUtil.success();
     }
 
     @GetMapping("/info")
-    public Result info(HttpServletRequest request) {
-        User user = (User) request.getAttribute("user");
-        return ResultUtil.success(user);
+    public Result info(HttpSession session) {
+        LoginInfo loginInfo = (LoginInfo) session.getAttribute("loginInfo");
+        return ResultUtil.success(loginInfo);
     }
 }

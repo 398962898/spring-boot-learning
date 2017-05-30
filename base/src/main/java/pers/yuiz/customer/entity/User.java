@@ -4,7 +4,7 @@ import pers.yuiz.common.base.BaseEntity;
 
 import java.util.Date;
 
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     /**
      * 用户名
@@ -15,6 +15,11 @@ public class User extends BaseEntity{
      * 密码
      */
     private String password;
+
+    /**
+     * 头像地址
+     */
+    private String headImg;
 
     /**
      * 性别,0表示未设定,1表示男,2表示女
@@ -50,6 +55,14 @@ public class User extends BaseEntity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
     }
 
     public Byte getSex() {

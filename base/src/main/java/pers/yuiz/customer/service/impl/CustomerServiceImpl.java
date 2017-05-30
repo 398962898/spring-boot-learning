@@ -6,14 +6,14 @@ import org.springframework.transaction.annotation.Transactional;
 import pers.yuiz.common.costant.ResultCostant;
 import pers.yuiz.common.exception.WarnException;
 import pers.yuiz.common.util.EncodeUtil;
-import pers.yuiz.customer.dao.RoleDao;
-import pers.yuiz.customer.dao.UserDao;
-import pers.yuiz.customer.dao.UserRoleDao;
+import pers.yuiz.customer.mapper.RoleMapper;
+import pers.yuiz.customer.mapper.UserMapper;
+import pers.yuiz.customer.mapper.UserRoleMapper;
 import pers.yuiz.customer.entity.User;
 import pers.yuiz.customer.entity.UserRole;
 import pers.yuiz.customer.service.CustomerService;
+import pers.yuiz.customer.vo.LoginInfo;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -22,11 +22,11 @@ import java.util.UUID;
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
     @Autowired
-    private UserRoleDao userRoleDao;
+    private UserRoleMapper userRoleMapper;
     @Autowired
-    private RoleDao roleDao;
+    private RoleMapper roleMapper;
 
     /**
      * 保存一个User
@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public int saveUser(User user) {
-        return userDao.insert(user);
+        return userMapper.insert(user);
     }
 
     /**
@@ -46,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public List<User> listAllUsers() {
-        return userDao.selectAll();
+        return userMapper.selectAll();
     }
 
     /**
@@ -61,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
         user.setPassword("tx" + UUID.randomUUID().toString().substring(0, 5));
         user.setGmtCreate(new Date());
         user.setGmtModified(new Date());
-        userDao.insert(user);
+        userMapper.insert(user);
         throw new RuntimeException();
     }
 
@@ -74,21 +74,21 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public int register(User user) {
-        Long userCount = userDao.countByUsername(user.getUsername());
+        Long userCount = userMapper.countByUsername(user.getUsername());
         if (userCount > 0) {
             throw new WarnException(ResultCostant.REGISTER_USERNAME_IS_REPEATED_WARN);
         }
         int i = 0;
         String newPassword = EncodeUtil.MD5Hex(user.getPassword());
         user.setPassword(newPassword);
-        i = userDao.insertSelective(user);
+        i = userMapper.insertSelective(user);
         if (i > 0) {
             UserRole userRole = new UserRole();
             userRole.newCreate();
-            user = userDao.findByUsername(user.getUsername());
+            user = userMapper.findByUsername(user.getUsername());
             userRole.setUserId(user.getId());
             userRole.setRoleId(1L);
-            userRoleDao.insert(userRole);
+            userRoleMapper.insert(userRole);
         } else {
             throw new RuntimeException("注册失败");
         }
@@ -103,7 +103,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public List<String> listRoleNamesByUsername(String username) {
-        return roleDao.listRoleNamesByUsername(username);
+        return roleMapper.listRoleNamesByUsername(username);
     }
 
     /**
@@ -114,7 +114,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public String findPasswordByUsername(String username) {
-        return userDao.findPasswordByUsername(username);
+        return userMapper.findPasswordByUsername(username);
     }
 
     /**
@@ -124,14 +124,16 @@ public class CustomerServiceImpl implements CustomerService {
      * @return
      */
     @Override
-    public User login(User user) {
+    public LoginInfo login(User user) {
         String newPassword = EncodeUtil.MD5Hex(user.getPassword());
         user.setPassword(newPassword);
-        user = userDao.selectOne(user);
+        user = userMapper.selectOne(user);
         if (user == null) {
             throw new WarnException(ResultCostant.LOGIN_ARGS_IS_WRONG_WARN);
+        } else {
+            LoginInfo loginInfo = userMapper.findLoginInfoByUserId(user.getId());
+            return loginInfo;
         }
-        return user;
     }
 
 }

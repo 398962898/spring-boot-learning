@@ -1,5 +1,6 @@
 package pers.yuiz.common.util;
 
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -146,6 +147,59 @@ public class JedisUtil {
     public static void returnResource(Jedis jedis) {
         if (jedis != null) {
             jedis.close();
+        }
+    }
+
+    public static void setex(String key, int seconds, Object object) {
+        Jedis jedis = null;
+        try {
+            String value = "";
+            jedis = createJedis();
+            if (object instanceof String) {
+                value = (String) object;
+            } else {
+                value = JSON.toJSONString(object);
+            }
+            jedis.setex(key, seconds, value);
+        } finally {
+            returnResource(jedis);
+        }
+    }
+
+    public static void set(String key, Object object) {
+        Jedis jedis = null;
+        try {
+            String value = "";
+            jedis = createJedis();
+            if (object instanceof String) {
+                value = (String) object;
+            } else {
+                value = JSON.toJSONString(object);
+            }
+            jedis.set(key, value);
+        } finally {
+            returnResource(jedis);
+        }
+    }
+
+    public static String get(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = createJedis();
+            String value = jedis.get(key);
+            return value;
+        } finally {
+            returnResource(jedis);
+        }
+    }
+
+    public static void del(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = createJedis();
+            jedis.del(key);
+        } finally {
+            returnResource(jedis);
         }
     }
 }

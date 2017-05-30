@@ -21,7 +21,7 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
 import javax.sql.DataSource;
 
-@MapperScan(basePackages = {"pers.yuiz.*.dao"})
+@MapperScan(basePackages = {"pers.yuiz.*.mapper"})
 @Configuration
 @EnableTransactionManagement
 public class DaoConfig {
@@ -57,7 +57,7 @@ public class DaoConfig {
 //    public MapperScannerConfigurer mapperScannerConfigurer() {
 //        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
 //        mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
-//        mapperScannerConfigurer.setBasePackage("pers.yuiz.*.dao");
+//        mapperScannerConfigurer.setBasePackage("pers.yuiz.*.mapper");
 //        logger.info("MapperScannerConfigurer.class加载完成");
 //        return mapperScannerConfigurer;
 //    }
