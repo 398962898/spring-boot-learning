@@ -2,6 +2,9 @@ package pers.yuiz.common.exception;
 
 import pers.yuiz.common.vo.Result;
 
+/**
+ * 自定义异常
+ */
 public class WarnException extends RuntimeException {
     private Integer code;
 

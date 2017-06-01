@@ -17,7 +17,7 @@ public class CustomerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Object o = request.getSession().getAttribute("loginInfo");
+        Object o = request.getAttribute("loginInfo");
         if (o != null && o instanceof LoginInfo) {
             return true;
         }

@@ -15,8 +15,9 @@
         <input id="info" type="button" value="登录信息" @click="infoFn()">&nbsp;&nbsp;
         <input id="country" type="button" value="国家信息" @click="getCountrysFn()">&nbsp;&nbsp;
         <input id="logout" type="button" value="退出登录" @click="logoutFn()">&nbsp;&nbsp;
-        <input id="show" type="button" value="显示" @click="showFn()" v-if="!flag">
-        <input id="hide" type="button" value="隐藏" @click="hideFn()" v-if="flag">
+        <input id="show" type="button" value="显示" @click="showFn()" v-if="!flag">&nbsp;&nbsp;
+        <input id="hide" type="button" value="隐藏" @click="hideFn()" v-if="flag">&nbsp;&nbsp;
+        <input id="chat" type="button" value="进入聊天室" @click="chatFn()">&nbsp;&nbsp;
     </p>
     <p><input v-model="message"></p>
     <div v-show="flag" class="glyphicon glyphicon-envelope"><p>{{message}}</p></div>
@@ -59,7 +60,8 @@
 <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
 <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.css" rel="stylesheet">
 <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
-<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="./js/libs/config.js"></script>
+<script src="./js/libs/comment.js"></script>
 <script src="./js/index.js"></script>
 <link href="./css/index.css" rel="stylesheet">
 </html>

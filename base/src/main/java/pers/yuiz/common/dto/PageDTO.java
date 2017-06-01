@@ -1,5 +1,8 @@
 package pers.yuiz.common.dto;
 
+/**
+ * 分页请求传输类
+ */
 public class PageDTO {
     /**
      * 当前页

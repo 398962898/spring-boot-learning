@@ -36,32 +36,6 @@ public class DaoConfig {
         return dataSource;
     }
 
-//    @Bean(name = "sqlSessionFactory")
-//    public SqlSessionFactory sqlSessionFactoryBean(@Autowired DataSource dataSource) {
-//        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-//        bean.setDataSource(dataSource);
-//        //添加XML目录
-//        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-//        try {
-//            bean.setMapperLocations(resolver.getResources("classpath:pers/yuiz/*.xml"));
-//            logger.info("SqlSessionFactoryBean.class加载完成");
-//            return bean.getObject();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            logger.error(e.getLocalizedMessage());
-//            throw new RuntimeException();
-//        }
-//    }
-//
-//    @Bean
-//    public MapperScannerConfigurer mapperScannerConfigurer() {
-//        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-//        mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
-//        mapperScannerConfigurer.setBasePackage("pers.yuiz.*.mapper");
-//        logger.info("MapperScannerConfigurer.class加载完成");
-//        return mapperScannerConfigurer;
-//    }
-
     @Bean
     public ServletRegistrationBean druidServlet() {
         return new ServletRegistrationBean(new StatViewServlet(), "/druid/*");

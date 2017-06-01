@@ -44,9 +44,10 @@ public abstract class BaseEntity implements Serializable {
     }
 
     /**
-     * 准备新插入一条数据时,调用给予记录新建时间与修改时间初始值
+     * 准备新插入一条数据时,调用给予记录新建时间与修改时间初始值以及Id主键为空值
      */
     public void newCreate() {
+        this.id = null;
         this.gmtCreate = new Date();
         this.gmtModified = new Date();
     }

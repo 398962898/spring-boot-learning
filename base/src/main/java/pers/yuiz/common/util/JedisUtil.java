@@ -11,6 +11,7 @@ import redis.clients.jedis.JedisPoolConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.UUID;
 
 public class JedisUtil {
     private final static Logger logger = LoggerFactory.getLogger(JedisUtil.class);
@@ -198,6 +199,48 @@ public class JedisUtil {
         try {
             jedis = createJedis();
             jedis.del(key);
+        } finally {
+            returnResource(jedis);
+        }
+    }
+
+    public static String set(Object object) {
+        Jedis jedis = null;
+        try {
+            String value = "";
+            jedis = createJedis();
+            if (object instanceof String) {
+                value = (String) object;
+            } else {
+                value = JSON.toJSONString(object);
+            }
+            String key = UUID.randomUUID().toString();
+            while (jedis.exists(key)) {
+                key = UUID.randomUUID().toString();
+            }
+            jedis.set(key, value);
+            return key;
+        } finally {
+            returnResource(jedis);
+        }
+    }
+
+    public static String setex(int seconds, Object object) {
+        Jedis jedis = null;
+        try {
+            String value = "";
+            jedis = createJedis();
+            if (object instanceof String) {
+                value = (String) object;
+            } else {
+                value = JSON.toJSONString(object);
+            }
+            String key = UUID.randomUUID().toString();
+            while (jedis.exists(key)) {
+                key = UUID.randomUUID().toString();
+            }
+            jedis.setex(key, seconds, value);
+            return key;
         } finally {
             returnResource(jedis);
         }

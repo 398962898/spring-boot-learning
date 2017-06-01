@@ -20,11 +20,10 @@ var app = new Vue({
             app.flag = false;
         },
         registerFn: function () {
-            var url = "/register";
             var sendData = {};
             sendData.username = app.username;
             sendData.password = app.password;
-            $.post(url, sendData, function (result) {
+            yuizAjax.post(ApiPath.registerUrl, sendData, function (result) {
                 console.log(result);
                 app.message = result.msg;
                 if (result.code == 200) {
@@ -35,25 +34,23 @@ var app = new Vue({
             });
         },
         loginFn: function () {
-            var url = "/login";
             var sendData = {};
             sendData.username = app.username;
             sendData.password = app.password;
-            $.post(url, sendData, function (result) {
+            yuizAjax.post(ApiPath.loginUrl, sendData, function (result) {
                 console.log(result);
                 app.message = result.msg;
                 if (result.code == 200) {
                     console.log(result.data);
-                    localStorage.setItem("auth", result.data);
+                    localStorage.setItem(Auth.client, result.data);
                 } else {
                     app.user = {};
                 }
             });
         },
         infoFn: function () {
-            var url = "/info";
             var sendData = {};
-            $.get(url, sendData, function (result) {
+            yuizAjax.get(ApiPath.infoUrl, sendData, function (result) {
                 console.log(result);
                 app.message = result.msg;
                 if (result.code == 200) {
@@ -72,11 +69,8 @@ var app = new Vue({
             });
         },
         logoutFn: function () {
-            var url = "/logout";
-            var sendData = {
-                auth: localStorage.getItem("auth"),
-            };
-            $.post(url, sendData, function (result) {
+            var sendData = {};
+            yuizAjax.post(ApiPath.logoutUrl, sendData, function (result) {
                 console.log(result);
                 app.message = result.msg;
                 if (result.code == 200) {
@@ -87,11 +81,10 @@ var app = new Vue({
             });
         },
         getCountrysFn: function () {
-            var url = "/country/list";
             var sendData = {};
             sendData.pageNum = app.pageNum;
             sendData.pageSize = app.pageSize;
-            $.get(url, sendData, function (result) {
+            yuizAjax.get(ApiPath.countryListUrl, sendData, function (result) {
                     console.log(result);
                     app.message = result.msg;
                     if (result.code == 200) {
@@ -103,6 +96,9 @@ var app = new Vue({
                     }
                 }
             )
+        },
+        chatFn: function () {
+            window.open("/ws.html", "_blank");
         },
         setPageNumFn: function (pageNum) {
             app.pageNum = pageNum;

@@ -6,13 +6,15 @@ var app = new Vue({
     },
     methods: {
         socketOpenFn: function () {
-            var sock = new SockJS('/endpointHello');
+            var sock = new SockJS(ApiPath.socketUrl);
+            // var sock = new SockJS("/endpointHello");
             client = Stomp.over(sock);
-            var header = {};
-            client.connect(header,
+            var headers = {};
+            client.connect(headers,
                 function (success) {
                     console.log('Connected:' + success);
-                    client.subscribe('/topic/websockethello', function (response) {
+                    // client.subscribe(ApiPath.socketConnectUrl, function (response) {
+                    client.subscribe("/topic/websockethello", function (response) {
                         var webSocketResponse = JSON.parse(response.body);
                         webSocketResponse.gmtCreate = new Date(webSocketResponse.gmtCreate).toLocaleDateString() + "  " + new Date(webSocketResponse.gmtCreate).toLocaleTimeString();
                         app.webSocketResponses.unshift(webSocketResponse);
@@ -29,10 +31,11 @@ var app = new Vue({
             console.log('Disconnected');
         },
         socketSendFn: function () {
-            var header = {
+            var headers = {
                 auth: localStorage.getItem("auth"),
             };
-            client.send("/websockethello", header, app.message);
+            // client.send(ApiPath.socketSendUrl, headers, app.message);
+            client.send("/websockethello", headers, app.message);
         },
     },
 });

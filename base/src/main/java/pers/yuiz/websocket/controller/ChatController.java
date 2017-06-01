@@ -3,28 +3,38 @@ package pers.yuiz.websocket.controller;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import pers.yuiz.common.costant.StringCostant;
 import pers.yuiz.common.util.JedisUtil;
 import pers.yuiz.customer.vo.LoginInfo;
 import pers.yuiz.websocket.vo.WebSocketResponse;
+
+import java.util.Map;
 
 @Controller
 public class ChatController {
     private final static Logger logger = LoggerFactory.getLogger(ChatController.class);
 
+    /**
+     * MessageMapping:消息接收路径,客户端发送消息路径收取的方法
+     * SendTo:消息广播路径,订阅该路径的客户端可以接收发送到该方法的消息
+     * @param headers
+     * @param message
+     * @return
+     */
     @MessageMapping("/websockethello")
     @SendTo("/topic/websockethello")
-    public WebSocketResponse hello(@Header("auth") String auth, String message) {
+    public WebSocketResponse hello(@Headers Map<String,String> headers, String message) {
+        String key = headers.get(StringCostant.auth);
         WebSocketResponse webSocketResponse = new WebSocketResponse();
         webSocketResponse.newCreate();
         webSocketResponse.setMessage(message);
         webSocketResponse.setUsername("游客");
-        if (auth != null) {
-            String value = JedisUtil.get(auth);
+        if (key != null) {
+            String value = JedisUtil.get(key);
             LoginInfo loginInfo = JSON.parseObject(value, LoginInfo.class);
             if (loginInfo != null) {
                 webSocketResponse.setUsername(loginInfo.getUsername());

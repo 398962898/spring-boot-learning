@@ -9,6 +9,9 @@ import pers.yuiz.common.exception.WarnException;
 import pers.yuiz.common.util.ResultUtil;
 import pers.yuiz.common.vo.Result;
 
+/**
+ * 统一异常处理
+ */
 @ControllerAdvice
 public class ExceptionHandle {
     private final static Logger logger = LoggerFactory.getLogger(ExceptionHandle.class);
