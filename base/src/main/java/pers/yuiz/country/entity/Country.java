@@ -1,6 +1,9 @@
 package pers.yuiz.country.entity;
 
-public class Country {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Country implements Serializable{
     /**
      * 主键
      */
@@ -38,5 +41,22 @@ public class Country {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Country that = (Country) o;
+
+        return Objects.equals(this.countryCode, that.countryCode) &&
+                Objects.equals(this.countryName, that.countryName) &&
+                Objects.equals(this.id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(countryCode, countryName, id);
     }
 }

@@ -24,7 +24,8 @@ public class CountryServiceImpl implements CountryService {
      */
     @Override
     public PageInfo<Country> listCountry(PageDTO pageDTO) {
-        PageHelper.startPage(pageDTO.getPageNum(),pageDTO.getPageSize());
+        System.out.println("CountryServiceImpl.listCountry(" + pageDTO.toString() + ")");
+        PageHelper.startPage(pageDTO.getPageNum(), pageDTO.getPageSize());
         List<Country> list = countryMapper.selectAll();
         PageInfo pageInfo = new PageInfo(list);
         return pageInfo;

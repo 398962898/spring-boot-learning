@@ -36,3 +36,9 @@ JedisConnectionFactory:
   password: yuiz
   timeout: 3000
   usePool: true
+spring:
+  cache:
+    ehcache:
+      config: classpath:ehcache_config.xml
+logging:
+  config: classpath:logback.xml

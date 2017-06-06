@@ -23,15 +23,15 @@
         </dependency>
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis &ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.session</groupId>-->
-            <!--<artifactId>spring-session-data-redis</artifactId>-->
-            <!--<version>1.3.1.RELEASE</version>-->
+        <!--<groupId>org.springframework.session</groupId>-->
+        <!--<artifactId>spring-session-data-redis</artifactId>-->
+        <!--<version>1.3.1.RELEASE</version>-->
         <!--</dependency>-->
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis &ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.data</groupId>-->
-            <!--<artifactId>spring-data-redis</artifactId>-->
-            <!--<version>1.8.3.RELEASE</version>-->
+        <!--<groupId>org.springframework.data</groupId>-->
+        <!--<artifactId>spring-data-redis</artifactId>-->
+        <!--<version>1.8.3.RELEASE</version>-->
         <!--</dependency>-->
         <!--Web层 end-->
         <!--WebSocket支持 start-->
@@ -69,6 +69,18 @@
             <version>2.9.0</version>
         </dependency>
         <!--Redis支持 end-->
+        <!--缓存支持 start-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-cache -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+        <!--缓存支持 end-->
         <!--持久层 start-->
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
@@ -102,10 +114,10 @@
         </dependency>
         <!--持久层 end-->
         <!--日志 start-->
-        <!--https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-logging -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
         <!--日志 end-->
         <!--工具 start-->

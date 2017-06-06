@@ -9,7 +9,9 @@ var app = new Vue({
             var sock = new SockJS(ApiPath.socketUrl);
             // var sock = new SockJS("/endpointHello");
             client = Stomp.over(sock);
-            var headers = {};
+            var headers = {
+				auth: localStorage.getItem("auth"),
+			};
             client.connect(headers,
                 function (success) {
                     console.log('Connected:' + success);
