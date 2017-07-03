@@ -1,5 +1,6 @@
 package pers.yuiz.hello;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pers.yuiz.common.util.ResultUtil;
@@ -35,5 +36,4 @@ public class HelloController {
         session.setAttribute("msg", msg);
         return ResultUtil.success(msg + ":" + session.getId());
     }
-
 }

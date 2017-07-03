@@ -40,5 +40,19 @@ spring:
   cache:
     ehcache:
       config: classpath:ehcache_config.xml
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/yuiz?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+      username: yuiz
+      password: yuiz
+      driver-class-name: com.mysql.jdbc.Driver
+      filters: stat
+      web-stat-filter:
+        url-pattern: /*
+      stat-view-servlet:
+        url-pattern: /druid/*
+        login-username: yuiz
+        login-password: yuiz
+      aop-patterns: pers.yuiz.*.service.*
 logging:
   config: classpath:logback.xml
