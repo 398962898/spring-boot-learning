@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pers.yuiz.common.costant.NumberCostant;
 import pers.yuiz.common.costant.ResultCostant;
 import pers.yuiz.common.costant.StringCostant;
 import pers.yuiz.common.exception.WarnException;
@@ -41,16 +42,16 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public Result login(User user, HttpSession session) {
+    public Result login(User user) {
         LoginInfo loginInfo = customerService.login(user);
         String value = JSON.toJSONString(loginInfo);
-        String key = JedisUtil.setex(360000, value);
+        String key = JedisUtil.setex(NumberCostant.TOKEN_EXPIRE, value);
         return ResultUtil.success(key);
     }
 
     @PostMapping("/logout")
     public Result logout(HttpServletRequest request) {
-        String key = request.getHeader(StringCostant.auth);
+        String key = request.getHeader(StringCostant.AUTH);
         if (key != null) {
             JedisUtil.del(key);
         }
@@ -59,7 +60,7 @@ public class CustomerController {
 
     @GetMapping("/info")
     public Result info(HttpServletRequest request) {
-        LoginInfo loginInfo = (LoginInfo) request.getAttribute("loginInfo");
+        LoginInfo loginInfo = (LoginInfo) request.getAttribute(StringCostant.LOGIN_INFO);
         return ResultUtil.success(loginInfo);
     }
 }

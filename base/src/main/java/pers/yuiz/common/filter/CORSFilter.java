@@ -30,7 +30,7 @@ public class CORSFilter implements Filter {
         this.AccessControlMaxAge = "36000";
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Origin, X-Requested-With, Content-Type, Accept, ");
-        stringBuffer.append(StringCostant.auth);
+        stringBuffer.append(StringCostant.AUTH);
         this.AccessControlAllowHeaders = stringBuffer.toString();
         logger.info("CORSFilter跨域过滤器初始化成功");
     }

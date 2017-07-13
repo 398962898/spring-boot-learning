@@ -25,7 +25,7 @@ public class ChatController {
      */
     @MessageMapping("/websockethello")
     @SendTo("/topic/websockethello")
-    public WebSocketResponse hello(@Header(name = StringCostant.auth) String key, String message) {
+    public WebSocketResponse hello(@Header(name = StringCostant.AUTH) String key, String message) {
         WebSocketResponse webSocketResponse = new WebSocketResponse();
         webSocketResponse.newCreate();
         webSocketResponse.setMessage(message);

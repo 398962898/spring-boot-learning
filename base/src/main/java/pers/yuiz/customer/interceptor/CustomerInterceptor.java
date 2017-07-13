@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import pers.yuiz.common.costant.ResultCostant;
+import pers.yuiz.common.costant.StringCostant;
 import pers.yuiz.common.exception.WarnException;
 import pers.yuiz.customer.vo.LoginInfo;
 
@@ -17,7 +18,7 @@ public class CustomerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Object o = request.getAttribute("loginInfo");
+        Object o = request.getAttribute(StringCostant.LOGIN_INFO);
         if (o != null && o instanceof LoginInfo) {
             return true;
         }
