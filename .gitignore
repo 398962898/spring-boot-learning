@@ -1,1 +1,13 @@
 /app/node_modules
+
+.settings
+
+*.log
+
+*.class
+
+target
+
+.classpath
+
+.project
